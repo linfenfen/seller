@@ -6,7 +6,7 @@
       <li class='item'><router-link :to='{name:"ratings"}'>评价</router-link></li>
       <li class='item'><router-link :to='{name:"seller"}'>商家</router-link></li>
     </ul>
-    <router-view></router-view>
+    <router-view :seller='seller'></router-view>
   </div>
 </template>
 
@@ -41,6 +41,7 @@ export default {
 <style lang='stylus' rel='stylesheet/stylus'>
 @import './common/stylus/mixin.styl'
 #app
+  overflow:hidden
   .navbar
     display:flex
     width:100%

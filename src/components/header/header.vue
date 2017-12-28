@@ -202,12 +202,7 @@ export default{
 		width:100%
 		height:100%
 		z-index:-1
-		filt
-
-
-
-
-		er:blur(10px)
+		filter:blur(10px)
 	.fade-enter-active,.fade-leave-active
 		transition:opacity 0.5s
 	.fade-enter,.fade-leave-to
@@ -266,15 +261,15 @@ export default{
 							background-size:16px 16px
 							background-repeat:no-repeat
 							&.decrease
-								bg-image('decrease_1')
+								bg-image('decrease_2')
 							&.discount
-								bg-image('discount_1')
+								bg-image('discount_2')
 							&.guarantee
-								bg-image('guarantee_1')
+								bg-image('guarantee_2')
 							&.invoice
-								bg-image('invoice_1')
+								bg-image('invoice_2')
 							&.special
-								bg-image('special_1')
+								bg-image('special_2')
 						&:last-child
 							margin-bottom:0
 						.board-content
