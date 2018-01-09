@@ -98,7 +98,7 @@ export default{
 	}
 }
 </script>
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @import '../../common/stylus/mixin'
 .header
 	position:relative
@@ -113,28 +113,25 @@ export default{
 			flex:1
 			position:relative
 			margin-left:12px
-			font-size:12px
+			font-size:1.2rem
 			.title
+				display:flex
+				align-items:center
 				margin:2px 0 8px 0
 				.brand
-					display:inline-block
 					width:30px
 					height:18px
 					margin-right:6px
-					vertical-align:top
 					bg-image('brand')
 					background-size:30px 18px
 					background-repeat:no-repeat
 				.name
-					font-size:16px
-					line-height:18px
+					font-size:1.6rem
 					font-weight:bold
 			.description
 				margin:0 0 10px 0
-				line-height:12px
 			.supports
-				font-size:12px
-				line-height:12px
+				font-size:1.2rem
 				.icon
 					display:inline-block
 					width:12px
@@ -157,18 +154,16 @@ export default{
 				position:absolute
 				right:0
 				bottom:0
-				height:24px
 				padding:0 8px
-				line-height:24px
-				border-radius:14px
+				line-height:2rem
+				border-radius:1rem
 				background:rgba(0,0,0,0.2)
 				text-align:center
 				span
-					font-size:10px
-					line-height:12px
+					font-size:1rem
 					margin-left:2px
 				.icon-keyboard_arrow_right
-					font-size:10px
+					font-size:1rem
 					vertical-align:middle
 	.board-wrapper
 		position:relative
@@ -189,12 +184,12 @@ export default{
 			background-repeat:no-repeat
 		.board
 			margin:0 4px
-			font-size:10px
+			font-size:1rem
 		.icon-keyboard_arrow_right
 			position:absolute
 			right:12px
 			top:12px
-			font-size:10px
+			font-size:1rem
 	.background
 		position:absolute
 		top:0
@@ -209,7 +204,7 @@ export default{
 		opacity:0
 	.detail
 		position:fixed
-		z-index:100
+		z-index:101
 		top:0
 		left:0
 		width:100%
@@ -227,18 +222,17 @@ export default{
 				padding-bottom:64px
 				.name
 					margin-bottom:12px;
-					font-size:16px
+					font-size:1.6rem
 					font-weight:700
-					line-height:16px
 					text-align:center
 				.title-wrapper
-					margin:18px 0 24px 0
+					margin:1.2rem 0 2rem 0
 					font-size:0
 					.title
 						display:inline-block
 						width:25%
 						text-align:center
-						font-size:14px
+						font-size:1.4rem
 						font-weight:700
 					.line
 						display:inline-block
@@ -249,8 +243,7 @@ export default{
 				.detail-box
 					padding: 0 12px
 					.detail-content
-						font-size:12px
-						line-height:12px
+						font-size:1.2rem
 						margin-bottom:12px
 						.icon
 							display:inline-block

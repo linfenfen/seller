@@ -1,4 +1,5 @@
 <template>
+<div>
 	<div class='goods'>
 		<div class="menu-wrapper"  ref='menuwrapper'>
 			<ul>
@@ -14,42 +15,52 @@
 		</div>
 		<div class="foods-wrapper" ref='foodswrapper'>
 			<ul>
-				<li v-for='(item,index) in goods' class='food-list' ref='foodlist' :data-index='index'>
+				<li v-for='(item,index) in goods' 
+					class='food-list' 
+					ref='foodlist' 
+					:data-index='index'>
 					<h2 class='title'>{{item.name}}</h2>
 					<ul>
-						<li v-for='food in item.foods' class='food-item border-1px'>
-							<div class='icon'>
-								<img :src='food.image' width='60' height='60' />
-							</div>
-							<div class='content'>
-								<h2 class='name'>{{food.name}}</h2>
-								<p class='desc'>{{food.description}}</p>
-								<div class='extra'>
-									<span>月售 {{food.sellCount}} 份</span>
-									<span>好评率 {{food.rating}}%</span>
+						<li v-for='food in item.foods' 
+							class='food-item border-1px'>
+							<div class='desc-wrapper' @click='select(item.name, food.name)'>
+								<div class='icon'>
+									<img :src='food.image' width='60' height='60' />
 								</div>
-								<div class='price'>
-									<span class='nowPrice'>￥{{food.price}}</span>
-									<span class='oldPrice' v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
+								<div class='content'>
+									<h2 class='name'>{{food.name}}</h2>
+									<p class='desc'>{{food.description}}</p>
+									<div class='extra'>
+										<span>月售 {{food.sellCount}} 份</span>
+										<span>好评率 {{food.rating}}%</span>
+									</div>
+									<div class='price'>
+										<span class='nowPrice'>￥{{food.price}}</span>
+										<span class='oldPrice' v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
+									</div>
 								</div>
 							</div>
 							<div class='add-wrapper'>
-								<cartcontrol :food='food' />
+								<cartcontrol :food='food' :good='item' />
 							</div>
 						</li>
-					</ul>						
+					</ul>	
 				</li>
 			</ul>
 		</div>
-		<div class='cartcar-wrapper'>
-		  <cartcar :selectArr='goods' :deliveryPrice='seller.deliveryPrice' :minPrice='seller.minPrice'></cartcar>
-		</div>
 	</div>
+	<div class='cartcar-wrapper'>
+		  <cartcar :goods='goods' :deliveryPrice='seller.deliveryPrice' :minPrice='seller.minPrice'></cartcar>
+		</div>
+	<!-- <detail-food :food='selectFood'></detail-food> -->
+</div>
 </template>
 <script>
 import axios from 'axios'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import cartcar from 'components/cartcar/cartcar'
+import detailFood from 'components/detailFood/detailFood'
+const URL = '/api/goods'
 const ERR_OK = 0
 export default {
 	props: {
@@ -59,7 +70,8 @@ export default {
 	},
 	components: {
 		cartcontrol,
-		cartcar
+		cartcar,
+		detailFood
 	},
 	data () {
 		return {
@@ -72,16 +84,26 @@ export default {
 	},
 	created () {
 		this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
-		axios.get('/api/goods').then((res) => {
-			if (res.data.errno === ERR_OK) {
-				this.goods = res.data.data
-				this.$nextTick(() => {
-					this.curHeight()
-				})
+		if (localStorage.getItem('goods')) {
+			this.goods = JSON.parse(localStorage.getItem('goods'))
+			this.$nextTick(() => {
+				this.curHeight()
 				const domFood = this.$refs.foodswrapper
 				domFood.addEventListener('scroll', this.scroll)
-			}
-		})
+			})
+		} else {
+			axios.get(URL).then((res) => {
+				if (res.data.errno === ERR_OK) {
+					this.goods = res.data.data
+					this.$nextTick(() => {
+						this.curHeight()
+						const domFood = this.$refs.foodswrapper
+						domFood.addEventListener('scroll', this.scroll)
+					})
+					localStorage.setItem('goods', JSON.stringify(this.goods))
+				}
+			})
+		}
 	},
 	destoryed () {
 		const domFood = this.$refs.foodswrapper
@@ -120,11 +142,16 @@ export default {
 			const domFood = this.$refs.foodswrapper
 			this.targetIndex = index
 			domFood.scrollTop = items[index].offsetTop
+		},
+		select (goodName, foodName) {
+			goodName = encodeURI(goodName)
+			foodName = encodeURI(foodName)
+			this.$router.push({name: 'food', params: {'goodName': goodName, 'foodName': foodName}})
 		}
 	}
 }
 </script>
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @import '../../common/stylus/mixin'
 ::-webkit-scrollbar
 	width:0px
@@ -135,8 +162,7 @@ export default {
 	bottom:48px
 	width:100%
 	.menu-wrapper
-		flex:0 0 80px
-		width:80px
+		flex:0 0 22%
 		background:#f3f5f7
 		overflow:auto
 		.menu-item
@@ -145,9 +171,9 @@ export default {
 			height:54px
 			.text
 				display:table-cell
-				padding:0 12px
-				font-size:12px
-				line-height:14px
+				padding:0 6px
+				font-size:1.2rem
+				line-height:1.2rem
 				text-align:center
 				vertical-align:middle
 				border-1px(rgba(7,17,27,0.2))
@@ -176,57 +202,61 @@ export default {
 		overflow:auto
 		.food-list
 			.title
-				font-size:12px
+				font-size:1.2rem
 				line-height:26px
 				padding:0 14px
 				border-left:3px solid  #d9dde1
 				color:rgb(147,153,159)
 				background:#f3f5f7
 			.food-item
-				display:relative
-				display:flex
-				margin:18px 18px 0 18px
-				padding-bottom:18px
+				position:relative
+				margin:10px 10px 0 10px
+				padding-bottom:10px
 				border-1px(rgba(7,17,27,0.1))
-				.icon
-					margin-right:10px
-				.content
-					margin-top:2px
-					.name
-						font-size:14px
-						line-height:14px
-						margin-bottom:8px
-					.desc
-						font-size:10px
-						line-height:12px
-						color:rgb(147,153,159)
-					.extra
-						font-size:10px
-						line-height:10px
-						margin-top:8px
-						color:rgb(147,153,159)
-					.price
-						.nowPrice
-							font-size:16px
-							font-weight:700
-							line-height:24px
-							margin-right:8px
-							color:red
-						.oldPrice
-							font-size:10px
-							font-weight:700
-							line-height:14px
-							vertical-align:middle
-							text-decoration:line-through
+				.desc-wrapper
+					display:flex
+					flex:1
+					.icon
+						flex:0 0 60px
+						margin-right:10px
+					.content
+						margin-top:2px
+						.name
+							font-size:1.4rem
+							margin-bottom:8px
+						.desc
+							font-size:1rem
+							line-height:1.2rem
+							color:rgb(147,153,159)
+						.extra
+							font-size:1rem
+							margin-top:8px
+							color:rgb(147,153,159)
+						.price
+							display:flex
+							align-items:center
+							font-size:0
+							.nowPrice
+								font-size:1.6rem
+								font-weight:700
+								line-height:2rem
+								margin-right:8px
+								color:red
+							.oldPrice
+								font-size:1rem
+								font-weight:700
+								text-decoration:line-through
 				.add-wrapper
 					position:absolute
+					bottom:4px
 					right:0
-					bottom:18px
+					z-index:2
+					text-align:right
 				&:last-child
 					border-none()
-	.cartcar-wrapper
-		position:absolute
-		width:100%
-		bottom:-48px
-		z-index:50
+.cartcar-wrapper
+	position:absolute
+	width:100%
+	bottom:0
+	z-index:100
 </style>
