@@ -26,7 +26,8 @@
 			<div class='account-wrapper' v-if='showFlag'>
 					<span class='account' @click='account'>我要买单</span>
 			</div>
-		</div>s
+			<div @click='clearlocalstorage'>清空localstorage</div>
+		</div>
 		<back></back>
 	</div>
 </template>
@@ -95,6 +96,10 @@ export default {
 			// 先提交订单，在清除本地数据
 			alert('已提交订单到后厨，请耐心等待...')
 			this.clearCar()
+		},
+		clearlocalstorage () {
+			localStorage.clear()
+			this.goods = []
 		}
 	},
 	watch: {

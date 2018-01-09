@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class='right'>
-          <addbtn :food='food' @addbtn='setItem'></addbtn>  
+          <addbtn :food='food' @addbtn='addGood'></addbtn>  
         </div>
       </div>
     </div>
@@ -47,6 +47,7 @@ import cartcar from 'components/cartcar/cartcar'
 import back from 'components/btn/back'
 import collect from 'components/btn/collect'
 import addbtn from 'components/btn/addbtn'
+import Vue from 'vue'
 import axios from 'axios'
 const SELLER = '/api/seller'
 const GOODS = '/api/goods'
@@ -56,7 +57,8 @@ export default {
     return {
       food: {},
       seller: {},
-      goods: []
+      goods: [],
+      good: {}
     }
   },
   components: {
@@ -76,21 +78,28 @@ export default {
       this.goods = JSON.parse(localStorage.getItem('goods'))
       const goodName = decodeURI(this.$route.params.goodName)
       const foodName = decodeURI(this.$route.params.foodName)
-      const good = this.goods.filter(good => good.name === goodName)[0]
-      this.food = good.foods.filter(food => food.name === foodName)[0]
+      this.good = this.goods.filter(good => good.name === goodName)[0]
+      this.food = this.good.foods.filter(food => food.name === foodName)[0]
     } else {
       axios.get(GOODS).then((res) => {
         if (res.data.errno === ERR_OK) {
           this.goods = res.data.data
           const goodName = decodeURI(this.$route.params.goodName)
           const foodName = decodeURI(this.$route.params.foodName)
-          const good = this.goods.filter(good => good.name === goodName)[0]
-          this.food = good.foods.filter(food => food.name === foodName)[0]
+          this.good = this.goods.filter(good => good.name === goodName)[0]
+          this.food = this.good.foods.filter(food => food.name === foodName)[0]
         }
       })
     }
   },
   methods: {
+    addGood () {
+      if (this.good.count === undefined) {
+        Vue.set(this.good, 'count', 0)
+      }
+      this.good.count++
+      this.setItem()
+    },
     setItem () {
       localStorage.setItem('goods', JSON.stringify(this.goods))
     }
