@@ -1,0 +1,51 @@
+{
+  "ref_no": "20180111-881386A1-00001",
+  "subtotal": 990,
+  "discount": 70,
+  "total": 930,
+  "tax": 10,
+  "tax_rate": 0.0104,
+  "tax_deduction": 0,
+  "balance_due": 930,
+  "created_time": 1515650613359,
+  "guest_number": 0,
+  "comment": "",
+  "creator_id": "jzhuang",
+  "creator_name": "Jie Zhuang",
+  "table_name": "",
+  "sync_flag": false,
+  "status": "complete",
+  "items": [
+    {
+      "name": "34",
+      "product_id": "598976ede89ce90010ce39ae",
+      "price": 0,
+      "final_price": 0,
+      "count": 1,
+      "dutyfree": false
+    },
+    {
+      "name": "ice",
+      "product_id": "59843145e89ce90012774d24",
+      "price": 990,
+      "final_price": 990,
+      "count": 1,
+      "dutyfree": false
+    }
+  ],
+  "payment": [
+    {
+      "amount": 930,
+      "cashier_id": "jzhuang",
+      "cashier_name": "Jie Zhuang",
+      "time": 1515650620770,
+      "method": "cash",
+      "tip": 0,
+      "total_amount": 0,
+      "cash": 930,
+      "change": 0
+    }
+  ],
+  "no": "20180111-881386A1-00001",
+  "created_date": 20180111
+}

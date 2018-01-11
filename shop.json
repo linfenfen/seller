@@ -1,0 +1,74 @@
+{
+  "code": 0,
+  "message": null,
+  "appid": "anyapp",
+  "appVersionId": "0.0.0",
+  "data": [
+    {
+      "shop": {
+        "id": "59709752e89ce90012dab126",
+        "name": "DEMO SHOP",
+        "tel": "025-5123456",
+        "tax_id": null,
+        "location": null,
+        "tax_rate": 0.1,
+        "logo": "http://imgqn.koudaitong.com/upload_files/2015/02/10/Fnz0XvZCpBPky4kTyjrSv7StwInq.jpg",
+        "image": {
+          "type": "EXTERNAL_URL",
+          "external_url": "http://imgqn.koudaitong.com/upload_files/2015/02/10/Fnz0XvZCpBPky4kTyjrSv7StwInq.jpg",
+          "file_key": null
+        },
+        "addr": {
+          "country": "CN",
+          "state": "JIANGSU",
+          "city": "南京市",
+          "street_addr": "迎翠路7号",
+          "zip": 100086
+        },
+        "enable_push_message": true
+      },
+      "role": {
+        "id": "0",
+        "name": "admin",
+        "order": 0,
+        "privileges": {}
+      }
+    },
+    {
+      "shop": {
+        "id": "59842dbde89ce90012774cd3",
+        "name": "test dedicated",
+        "tel": "0250-5413567",
+        "tax_id": null,
+        "location": null,
+        "tax_rate": 1.04,
+        "logo": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501844672098&di=717c955cf70d26c67e315544da8bd146&imgtype=0&src=http%3A%2F%2Fpic32.nipic.com%2F20130808%2F3347542_165804689000_2.jpg",
+        "image": {
+          "type": "EXTERNAL_URL",
+          "external_url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501844672098&di=717c955cf70d26c67e315544da8bd146&imgtype=0&src=http%3A%2F%2Fpic32.nipic.com%2F20130808%2F3347542_165804689000_2.jpg",
+          "file_key": null
+        },
+        "addr": {
+          "country": "CN",
+          "state": "ZHEJIANG",
+          "city": "衢州",
+          "street_addr": "开花",
+          "zip": 100086
+        },
+        "enable_push_message": true
+      },
+      "role": {
+        "id": "0",
+        "name": "admin",
+        "order": 0,
+        "privileges": {}
+      }
+    }
+  ],
+  "paginationOption": {
+    "offset": 0,
+    "page_size": 20,
+    "cursor": null,
+    "total": 0
+  }
+}

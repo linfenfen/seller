@@ -12,7 +12,7 @@
 			<div class='wrapper' v-for='good in goods' v-if='good.count'>
 				<div class='title goodtitle'>{{good.name}}</div>
 				<ul>
-					<li class='food' v-for='food in good.foods' v-if='food.count'>
+					<li class='food' v-for='food in good.products' v-if='food.count'>
 						<div class='left'>
 							<div class='name'>{{food.name}}</div>
 							<div class='price'>￥ {{food.price * food.count}}</div>
@@ -80,7 +80,7 @@ export default {
 			this.goods.forEach(good => {
 				if (good.count) {
 					good.count = 0
-					good.foods.forEach(food => {
+					good.products.forEach(food => {
 						if (food.count) {
 							food.count = 0
 						}

@@ -1,0 +1,155 @@
+{
+  "code": 0,
+  "message": null,
+  "appid": "anyapp",
+  "appVersionId": "0.0.0",
+  "data": [
+    {
+      "id": "598430ede89ce90012774d1f",
+      "name": "code",
+      "order": 0,
+      "products": [
+        {
+          "id": "59843145e89ce90012774d24",
+          "name": "ice",
+          "order": 0,
+          "shop": "59842dbde89ce90012774cd3",
+          "category": "598430ede89ce90012774d1f",
+          "available": true,
+          "comment": null,
+          "count": -1,
+          "description": null,
+          "discount": 0,
+          "duty_free": false,
+          "final_price": 990,
+          "price": 990,
+          "special": false,
+          "thumb": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501845583270&di=8a58984702dd8e2bbf5fe8693615fc7f&imgtype=0&src=http%3A%2F%2Fpic1.nipic.com%2F2009-02-23%2F200922319464131_2.jpg",
+          "thumbImage": {
+            "type": "EXTERNAL_URL",
+            "external_url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501845583270&di=8a58984702dd8e2bbf5fe8693615fc7f&imgtype=0&src=http%3A%2F%2Fpic1.nipic.com%2F2009-02-23%2F200922319464131_2.jpg",
+            "file_key": null
+          },
+          "whole_sale_price": 0,
+          "images": []
+        },
+        {
+          "id": "5984319ae89ce90012774d29",
+          "name": "Green tea",
+          "order": 1,
+          "shop": "59842dbde89ce90012774cd3",
+          "category": "598430ede89ce90012774d1f",
+          "available": true,
+          "comment": null,
+          "count": -1,
+          "description": null,
+          "discount": 0,
+          "duty_free": true,
+          "final_price": 1490,
+          "price": 1490,
+          "special": false,
+          "thumb": "http://images.cynopos.com/cpos/o_1bmm62eml1nub3kcb9ppcdhj015",
+          "thumbImage": {
+            "type": "UPLOADED",
+            "external_url": "",
+            "file_key": "http://images.cynopos.com/cpos/o_1bmm62eml1nub3kcb9ppcdhj015"
+          },
+          "whole_sale_price": 0,
+          "images": []
+        },
+        {
+          "id": "598976ede89ce90010ce39ae",
+          "name": "34",
+          "order": 2,
+          "shop": "59842dbde89ce90012774cd3",
+          "category": "598430ede89ce90012774d1f",
+          "available": true,
+          "comment": null,
+          "count": -1,
+          "description": null,
+          "discount": 0,
+          "duty_free": false,
+          "final_price": 0,
+          "price": 0,
+          "special": false,
+          "thumb": "http://images.cynopos.com/cpos/o_1bn0fg5gi1t22ivu11nl164klnr27",
+          "thumbImage": {
+            "type": "UPLOADED",
+            "external_url": "",
+            "file_key": "http://images.cynopos.com/cpos/o_1bn0fg5gi1t22ivu11nl164klnr27"
+          },
+          "whole_sale_price": 0,
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": "59843201e89ce90012774d2d",
+      "name": "hot drink",
+      "order": 1,
+      "products": [
+        {
+          "id": "5984328ee89ce90012774d31",
+          "name": "Ota tea",
+          "order": 0,
+          "shop": "59842dbde89ce90012774cd3",
+          "category": "59843201e89ce90012774d2d",
+          "available": true,
+          "comment": null,
+          "count": -1,
+          "description": null,
+          "discount": 0,
+          "duty_free": false,
+          "final_price": 888,
+          "price": 888,
+          "special": true,
+          "thumb": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501845857980&di=797b3f641bf3f45550c1c066270a9c10&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1399196900%2C22241585%26fm%3D214%26gp%3D0.jpg",
+          "thumbImage": {
+            "type": "EXTERNAL_URL",
+            "external_url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501845857980&di=797b3f641bf3f45550c1c066270a9c10&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1399196900%2C22241585%26fm%3D214%26gp%3D0.jpg",
+            "file_key": null
+          },
+          "whole_sale_price": 0,
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": "59843201e89ce90012774d2d",
+      "name": "hot drink",
+      "order": 1,
+      "products": [
+        {
+          "id": "5984328ee89ce90012774d31",
+          "name": "Ota tea",
+          "order": 0,
+          "shop": "59842dbde89ce90012774cd3",
+          "category": "59843201e89ce90012774d2d",
+          "available": true,
+          "comment": null,
+          "count": -1,
+          "description": null,
+          "discount": 0,
+          "duty_free": false,
+          "final_price": 888,
+          "price": 888,
+          "special": true,
+          "thumb": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501845857980&di=797b3f641bf3f45550c1c066270a9c10&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1399196900%2C22241585%26fm%3D214%26gp%3D0.jpg",
+          "thumbImage": {
+            "type": "EXTERNAL_URL",
+            "external_url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1501845857980&di=797b3f641bf3f45550c1c066270a9c10&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1399196900%2C22241585%26fm%3D214%26gp%3D0.jpg",
+            "file_key": null
+          },
+          "whole_sale_price": 0,
+          "images": []
+        }
+      ]
+    }
+  ],
+  "paginationOption": {
+    "offset": 0,
+    "page_size": 20,
+    "cursor": null,
+    "total": 0
+  }
+}

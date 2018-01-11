@@ -5,43 +5,43 @@
 			<ul>
 				<li class='menu-item' 
 					:class='curIndex===index?"active":""' 
-					v-for='(item,index) in goods'
+					v-for='(good,index) in goods'
 					@click='jump(index)'>
 					<span class='text border-1px'>
-						<span v-if='item.type>0' class='icon' :class='classMap[item.type]' ></span>{{item.name}}
+						<span v-if='good.type>0' class='icon' :class='classMap[good.type]' ></span>{{good.name}}
 					</span>
 				</li>
 			</ul>
 		</div>
 		<div class="foods-wrapper" ref='foodswrapper'>
 			<ul>
-				<li v-for='(item,index) in goods' 
+				<li v-for='(good,index) in goods' 
 					class='food-list' 
 					ref='foodlist' 
 					:data-index='index'>
-					<h2 class='title'>{{item.name}}</h2>
+					<h2 class='title'>{{good.name}}</h2>
 					<ul>
-						<li v-for='food in item.foods' 
+						<li v-for='food in good.products' 
 							class='food-item border-1px'>
-							<div class='desc-wrapper' @click='select(item.name, food.name)'>
+							<div class='desc-wrapper' @click='select(good.name, food.name)'>
 								<div class='icon'>
-									<img :src='food.image' width='60' height='60' />
+									<img :src='food.thumb' width='60' height='60' />
 								</div>
 								<div class='content'>
 									<h2 class='name'>{{food.name}}</h2>
 									<p class='desc'>{{food.description}}</p>
 									<div class='extra'>
-										<span>月售 {{food.sellCount}} 份</span>
+										<span>月售 {{food.discount}} 份</span>
 										<span>好评率 {{food.rating}}%</span>
 									</div>
 									<div class='price'>
-										<span class='nowPrice'>￥{{food.price}}</span>
-										<span class='oldPrice' v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
+										<span class='nowPrice'>{{food.price / 100}}</span>
+										<span class='oldPrice' v-show='food.final_price'>{{food.final_price / 100}}</span>
 									</div>
 								</div>
 							</div>
 							<div class='add-wrapper'>
-								<cartcontrol :food='food' :good='item' />
+								<cartcontrol :food='food' :good='good' />
 							</div>
 						</li>
 					</ul>	
@@ -79,7 +79,8 @@ export default {
 			curIndex: 0,
 			listHeight: [],
 			// 用于记录menu是否可以滚动
-			targetIndex: -1
+			targetIndex: -1,
+			targetHeight: -1
 		}
 	},
 	created () {
@@ -93,7 +94,7 @@ export default {
 			})
 		} else {
 			axios.get(URL).then((res) => {
-				if (res.data.errno === ERR_OK) {
+				if (res.data.code === ERR_OK) {
 					this.goods = res.data.data
 					this.$nextTick(() => {
 						this.curHeight()
@@ -128,7 +129,14 @@ export default {
 			const domMenu = this.$refs.menuwrapper
 			const scrollTop = Math.floor(domFood.scrollTop / 50) * 50
 			const index = this.listHeight['H' + scrollTop]
-			if (index >= 0 && index !== this.curIndex) {
+			if (this.curHeight !== -1) {
+				// 处理因最后的菜单太小 导致的点击左侧菜单右侧跳转 但不激活左侧的问题
+				if (this.curHeight === scrollTop) {
+					this.curIndex = this.targetIndex
+					this.targetIndex = -1
+					this.curHeight = -1
+				}
+			} else if (index >= 0 && index !== this.curIndex) {
 				this.curIndex = index
 				if (this.targetIndex === index) {
 					this.targetIndex = -1
@@ -140,8 +148,20 @@ export default {
 		jump (index) {
 			const items = this.$refs.foodlist
 			const domFood = this.$refs.foodswrapper
-			this.targetIndex = index
-			domFood.scrollTop = items[index].offsetTop
+			const scrollTop = Math.floor(domFood.scrollTop / 50) * 50
+			const scrollHeight = Math.floor((domFood.scrollHeight - domFood.clientHeight) / 50) * 50
+			const offsetTop = items[index].offsetTop
+			if (scrollTop === scrollHeight && offsetTop > scrollTop) {
+				// 右侧菜单到底  但是由于末尾菜单高度不足 导致不激活左侧菜单
+				this.curIndex = index
+			} else if (scrollTop < scrollHeight && offsetTop > scrollTop) {
+				this.curHeight = scrollHeight
+				this.targetIndex = index
+				domFood.scrollTop = offsetTop
+			} else {
+				this.targetIndex = index
+				domFood.scrollTop = offsetTop
+			}
 		},
 		select (goodName, foodName) {
 			goodName = encodeURI(goodName)
@@ -158,7 +178,7 @@ export default {
 .goods
 	display:flex
 	position:absolute
-	top:174px
+	top:14.1rem
 	bottom:48px
 	width:100%
 	.menu-wrapper

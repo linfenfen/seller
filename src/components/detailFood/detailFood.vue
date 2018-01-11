@@ -3,19 +3,19 @@
   <div class='detail-food' v-show='food.name'>
     <div class='fooddetail'>
       <div class='img'>
-        <img :src='food.image' width='100%' height='275' />
+        <img :src='food.thumb' width='100%' height='275' />
         <collect :food='food' @setItem='setItem'></collect>
       </div>
       <div class='wrap detail'>
         <div class='left'>
           <h2 class='title'>{{food.name}}</h2>
           <div class='extra'>
-            <span>月售 {{food.sellCount}} 份</span>
+            <span>月售 {{food.discount}} 份</span>
             <span>好评率 {{food.rating}}%</span>
           </div>
           <div class='price'>
-            <span class='nowPrice'>￥{{food.price}}</span>
-            <span class='oldPrice' v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
+            <span class='nowPrice'>￥{{food.price/100}}</span>
+            <span class='oldPrice' v-show='food.final_price'>￥{{food.final_price/100}}</span>
           </div>
         </div>
         <div class='right'>
@@ -28,10 +28,11 @@
       <p class='info' v-if='food.info'>{{food.info}}</p>
       <p class='info' v-else>暂无相关介绍</p>
     </div>
-    <div class='wrap commit'>
+    <div class='wrap comment'>
       <h2 class='titles'>商品评价</h2>
-      <div class='commit-wrapper'>
-        <commit :ratings='food.ratings'></commit>
+      <div class='comment-wrapper'>
+        <comment :comment='food.comment' v-if='food.comment'></comment>
+        <p class='none' v-else>暂无相关介绍</p>
       </div>
     </div>
   </div>
@@ -42,7 +43,7 @@
 </div>
 </template>
 <script>
-import commit from 'components/commit/commit'
+import comment from 'components/comment/comment'
 import cartcar from 'components/cartcar/cartcar'
 import back from 'components/btn/back'
 import collect from 'components/btn/collect'
@@ -62,7 +63,7 @@ export default {
     }
   },
   components: {
-    commit,
+    comment,
     cartcar,
     back,
     collect,
@@ -79,15 +80,15 @@ export default {
       const goodName = decodeURI(this.$route.params.goodName)
       const foodName = decodeURI(this.$route.params.foodName)
       this.good = this.goods.filter(good => good.name === goodName)[0]
-      this.food = this.good.foods.filter(food => food.name === foodName)[0]
+      this.food = this.good.products.filter(food => food.name === foodName)[0]
     } else {
       axios.get(GOODS).then((res) => {
-        if (res.data.errno === ERR_OK) {
+        if (res.data.code === ERR_OK) {
           this.goods = res.data.data
           const goodName = decodeURI(this.$route.params.goodName)
           const foodName = decodeURI(this.$route.params.foodName)
           this.good = this.goods.filter(good => good.name === goodName)[0]
-          this.food = this.good.foods.filter(food => food.name === foodName)[0]
+          this.food = this.good.products.filter(food => food.name === foodName)[0]
         }
       })
     }
@@ -107,8 +108,10 @@ export default {
 }
 </script>
 <style lang='stylus' scoped>
+::-webkit-scrollbar
+  width:0px
 .detail-food
-  position:fixed
+  position:absolute
   top:0
   left:0
   right:0
@@ -160,12 +163,17 @@ export default {
     &.board
       .info
         padding:0 8px
-        font-size:12px
+        font-size:1.2rem
         line-height:24px
         color:rgb(77,85,93)
-    &.commit
-      .commit-wrapper
+    &.comment
+      .comment-wrapper
         margin-top:12px
+        .none
+          padding:0 8px
+          font-size:1.2rem
+          line-height:2rem
+          color:rgb(77,85,93)
 .cartcar-wrapper
   position:absolute
   width:100%

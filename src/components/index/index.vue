@@ -43,8 +43,8 @@ export default {
 .navbar
   display:flex
   width:100%
-  height:40px
-  line-height:40px
+  height:3.5rem
+  line-height:3.5rem
   text-align:center
   border-1px(rgba(7,17,27,0.1))
   .item

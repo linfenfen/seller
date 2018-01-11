@@ -1,13 +1,13 @@
 <template>
-	<div class='commit'>
+	<div class='comment' v-if='comment.length'>
 		<ul class='navbar'>
-			<li class='item' :class='nowSelect === -1 ?"active":""' @click='changeRatings(-1)'>全部 {{ratings.length}}</li>
-			<li class='item' :class='nowSelect === 0 ?"active":""' @click='changeRatings(0)'>推荐 {{goodRatings.length}}</li>
-			<li class='item' :class='nowSelect === 1 ?"active":""' @click='changeRatings(1)'>吐槽 {{badRatings.length}}</li>
+			<li class='item' :class='nowSelect === -1 ?"active":""' @click='changeComment(-1)'>全部 {{comment.length}}</li>
+			<li class='item' :class='nowSelect === 0 ?"active":""' @click='changeComment(0)'>推荐 {{goodComment.length}}</li>
+			<li class='item' :class='nowSelect === 1 ?"active":""' @click='changeComment(1)'>吐槽 {{badComment.length}}</li>
 		</ul>
-		<div class='commit-detail'>
+		<div class='comment-detail'>
 			<ul>
-				<li class='rating border-1px' v-for='rating in nowRatings'>
+				<li class='rating border-1px' v-for='rating in nowComment'>
 					<div class='title'>
 						<span class='username'>{{rating.username}}</span>
 						<span class='ratetime'>{{rating.rateTime | formatDateTime}}</span>
@@ -27,7 +27,7 @@
 import star from 'components/star/star'
 export default {
 	props: {
-		ratings: {
+		comment: {
 			type: Array,
 			default () {
 				return []
@@ -43,24 +43,24 @@ export default {
 		star
 	},
 	computed: {
-		goodRatings () {
-			return this.ratings.filter(rating => rating.rateType === 0)
+		goodComment () {
+			return this.comment.filter(rating => rating.rateType === 0)
 		},
-		badRatings () {
-			return this.ratings.filter(rating => rating.rateType === 1)
+		badComment () {
+			return this.comment.filter(rating => rating.rateType === 1)
 		},
-		nowRatings () {
-			let ratings = this.ratings
+		nowComment () {
+			let comment = this.comment
 			if (this.nowSelect === 0) {
-				ratings = this.goodRatings
+				comment = this.goodComment
 			} else if (this.nowSelect === 1) {
-				ratings = this.badRatings
+				comment = this.badComment
 			}
-			return ratings
+			return comment
 		}
 	},
 	methods: {
-		changeRatings (type) {
+		changeComment (type) {
 			this.nowSelect = type
 		}
 	},
@@ -98,7 +98,7 @@ export default {
 			background-color:rgba(199,193,193,0.43)
 	&:last-child
 		border:0
-.commit-detail
+.comment-detail
 	.rating
 		padding:10px
 		border-1px(rgba(7,17,27,0.1))

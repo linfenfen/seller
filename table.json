@@ -1,0 +1,32 @@
+{
+  "code": 0,
+  "message": null,
+  "appid": "anyapp",
+  "appVersionId": "0.0.0",
+  "data": [
+    {
+      "id": "598a6a5be89ce90010ce39d8",
+      "name": "A1",
+      "shop": "59842dbde89ce90012774cd3",
+      "seats": 1,
+      "order": null,
+      "status": "AVAILABLE",
+      "comment": "特意留给独自享受孤单的人"
+    },
+    {
+      "id": "598a6a99e89ce90010ce39dc",
+      "name": "A2",
+      "shop": "59842dbde89ce90012774cd3",
+      "seats": 2,
+      "order": null,
+      "status": "AVAILABLE",
+      "comment": "甜蜜的二人时光"
+    }
+  ],
+  "paginationOption": {
+    "offset": 0,
+    "page_size": 20,
+    "cursor": null,
+    "total": 0
+  }
+}

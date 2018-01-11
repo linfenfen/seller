@@ -5,12 +5,12 @@
 			<span v-show='totalCount>0' class='totalCount'>{{totalCount}}</span>
 		</div>
 		<div class='money' @click='showcar'>
-			<span class='totalMoney border-1px' :class='totalCount>0?"active":""'>￥{{totalMoney}}</span>
-			<span class='sendMoney'>另需配送费￥{{deliveryPrice}}元</span>
+			<span class='totalMoney' :class='totalCount>0?"active":""'>￥{{totalMoney/100}}</span>
+			<!-- <span class='sendMoney'>另需配送费￥{{deliveryPrice}}元</span> -->
 		</div>
 		<div class='btnbuy'>
 			<span v-if='totalMoney<=0'>￥{{minPrice}}元起送</span>
-			<span v-else-if='(minPrice-totalMoney)>0'>还差￥{{minPrice - totalMoney}}元起送</span>
+			<span v-else-if='(minPrice-totalMoney/100)>0'>还差￥{{(minPrice - totalMoney/100).toFixed(2)}}元起送</span>
 			<span class='buy' v-else @click='goAccount'>开始结算</span>
 		</div>
 		<transition name='fade'>
@@ -21,15 +21,15 @@
 				</div>
 				<div class='totalfood-wrapper'>
 					<ul>
-						<li v-for='item in allGood'>
+						<li v-for='good in allGood'>
 							<ul>
-								<li  class='item border-1px' v-for='food in item.foods' v-if='food.count'>
+								<li  class='item border-1px' v-for='food in good.products' v-if='food.count'>
 									<div class='left'>
 										<span class='name'>{{food.name}}</span>
-										<span class='price'>￥{{food.price * food.count}}</span>
+										<span class='price'>{{food.price/100 * food.count}}</span>
 									</div>
 									<div class='right'>
-										<cartcontrol :food='food' :good='item'></cartcontrol>
+										<cartcontrol :food='food' :good='good'></cartcontrol>
 									</div>
 								</li>
 							</ul>
@@ -74,7 +74,7 @@ export default {
 		totalMoney () {
 			let totalMoney = 0
 			this.goods.forEach(good => {
-				good.foods.forEach(food => {
+				good.products.forEach(food => {
 					if (food.count) {
 					totalMoney += food.price * food.count
 					}
@@ -85,7 +85,7 @@ export default {
 		totalCount () {
 			let totalCount = 0
 			this.goods.forEach(good => {
-				good.foods.forEach(food => {
+				good.products.forEach(food => {
 					if (food.count) {
 					totalCount += food.count
 				}
@@ -107,7 +107,7 @@ export default {
 		},
 		deleteSelect () {
 			this.goods.forEach(good => {
-				good.foods.forEach(food => {
+				good.products.forEach(food => {
 					if (food.count) {
 						food.count = 0
 					}
@@ -128,7 +128,7 @@ export default {
 	}
 }
 </script>
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @import '../../common/stylus/mixin'
 ::-webkit-scrollbar
 	width:0px
@@ -182,7 +182,7 @@ export default {
 				font-size:1.6rem
 				font-weight:700
 				padding-right:3%
-				border-1px-right(rgba(255,255,255,0.1))
+/*	border-1px-right(rgba(255,255,255,0.1))*/
 				&.active
 					color:#fff
 			&.sendMoney

@@ -2,7 +2,7 @@
 	<div class='header'>
 		<div class='content-wrapper'>
 			<div class='avatar'>
-				<img :src='seller.avatar' width='64'height='64' />
+				<img :src='seller.avatar' />
 			</div>
 			<div class='content'>
 				<div class='title'>
@@ -106,8 +106,10 @@ export default{
 	background-color:rgba(7,17,27,0.5)
 	.content-wrapper
 		display:flex
-		padding:24px 12px 18px 24px
+		padding:2rem 1rem 1.5rem 2rem
 		.avatar img
+			width:5.1rem
+			heigh:5.1rem
 			border-radius:2px
 		.content
 			flex:1
@@ -117,28 +119,32 @@ export default{
 			.title
 				display:flex
 				align-items:center
-				margin:2px 0 8px 0
+				margin:0.1rem 0 0.4rem 0
 				.brand
-					width:30px
-					height:18px
+					width:2.5rem
+					height:1.4rem
 					margin-right:6px
+					vertical-align:top
 					bg-image('brand')
-					background-size:30px 18px
+					background-size:2.5rem 1.4rem
 					background-repeat:no-repeat
 				.name
 					font-size:1.6rem
+					line-height:1.6rem
 					font-weight:bold
 			.description
-				margin:0 0 10px 0
+				margin:0 0 0.6rem 0
+				line-height:1.2rem
 			.supports
 				font-size:1.2rem
+				line-height:1.2rem
 				.icon
 					display:inline-block
-					width:12px
-					height:12px
+					width:1.1rem
+					height:1.1rem
 					margin-right:4px
 					vertical-align:top
-					background-size:12px 12px
+					background-size:1.1rem 1.1rem
 					background-repeat:no-repeat
 					&.decrease
 						bg-image('decrease_1')
@@ -167,8 +173,8 @@ export default{
 					vertical-align:middle
 	.board-wrapper
 		position:relative
-		height:28px
-		line-height:28px
+		height:2rem
+		line-height:2rem
 		padding:0 22px 0 12px
 		white-space:nowrap
 		overflow:hidden
@@ -176,11 +182,11 @@ export default{
 		background:rgba(7,17,27,0.2)
 		.brand
 			display:inline-block
-			width:22px
-			height:12px
+			width:1.6rem
+			height:1rem
 			vertical-align:middle
 			bg-image('bulletin')
-			background-size:22px 12px
+			background-size:1.6rem 1rem
 			background-repeat:no-repeat
 		.board
 			margin:0 4px
@@ -188,8 +194,8 @@ export default{
 		.icon-keyboard_arrow_right
 			position:absolute
 			right:12px
-			top:12px
 			font-size:1rem
+			line-height:2rem
 	.background
 		position:absolute
 		top:0

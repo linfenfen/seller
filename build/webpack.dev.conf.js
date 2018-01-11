@@ -13,7 +13,7 @@ const express=require('express')
 const app=express()
 var appData=require('../data.json')
 var seller=appData.seller
-var goods=appData.goods
+var goods=require('../categories.json').data
 var ratings=appData.ratings
 
 var apiRoutes=express.Router()
@@ -73,7 +73,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       })
       app.get('/api/goods',(req,res)=>{
         res.json({
-          errno:0,
+          code:0,
           data:goods
         })
       })
