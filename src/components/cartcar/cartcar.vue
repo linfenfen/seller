@@ -23,10 +23,10 @@
 					<ul>
 						<li v-for='good in allGood'>
 							<ul>
-								<li  class='item border-1px' v-for='food in good.products' v-if='food.count'>
+								<li  class='item border-1px' v-for='food in good.products' v-if='food.ccount'>
 									<div class='left'>
 										<span class='name'>{{food.name}}</span>
-										<span class='price'>{{food.price/100 * food.count}}</span>
+										<span class='price'>{{food.final_price * food.ccount / 100}}</span>
 									</div>
 									<div class='right'>
 										<cartcontrol :food='food' :good='good'></cartcontrol>
@@ -75,8 +75,8 @@ export default {
 			let totalMoney = 0
 			this.goods.forEach(good => {
 				good.products.forEach(food => {
-					if (food.count) {
-					totalMoney += food.price * food.count
+					if (food.ccount) {
+					totalMoney += food.final_price * food.ccount
 					}
 				})
 			})
@@ -86,8 +86,8 @@ export default {
 			let totalCount = 0
 			this.goods.forEach(good => {
 				good.products.forEach(food => {
-					if (food.count) {
-					totalCount += food.count
+					if (food.ccount) {
+					totalCount += food.ccount
 				}
 				})
 			})
@@ -108,8 +108,8 @@ export default {
 		deleteSelect () {
 			this.goods.forEach(good => {
 				good.products.forEach(food => {
-					if (food.count) {
-						food.count = 0
+					if (food.ccount) {
+						food.ccount = 0
 					}
 				})
 			})
@@ -275,7 +275,7 @@ export default {
 		/*iphone上可显示背景模糊*/
 		backdrop-filter:blur(10px)
 	.showcontrol-enter-active,.showcontrol-leave-active
-		transition:opacity 0.5s
+		transition:opacity 0.3s
 	.showcontrol-enter,.showcontrol-leave-to
 		opacity:0
 	.fade-enter-active,.fade-leave-active

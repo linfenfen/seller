@@ -13,10 +13,10 @@ export default {
 	},
 	methods: {
 		addFood () {
-			if (!this.food.count) {
-				Vue.set(this.food, 'count', 0)
+			if (!this.food.ccount) {
+				Vue.set(this.food, 'ccount', 0)
 			}
-			this.food.count ++
+			this.food.ccount ++
 			this.$emit('addbtn')
 		}
 	}

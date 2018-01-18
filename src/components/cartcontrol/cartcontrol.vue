@@ -2,10 +2,10 @@
 	<div class='cartcontrol'>
     <!-- 该处不能用动画 否则会快速点击时会造成错误 -->
     <!-- <transition name='showcontrol'> -->
-      <span v-show='food.count>0' class='icon-remove_circle_outline' @click='decreaseFood'></span>
+      <span v-show='food.ccount>0' class='icon-remove_circle_outline' @click='decreaseFood'></span>
     <!-- </transition> -->
     <transition name='showcontrol'>
-      <span v-show='food.count>0' class='count'>{{food.count}}</span>
+      <span v-show='food.ccount>0' class='count'>{{food.ccount}}</span>
     </transition>
     <span class='icon-add_circle' @click='addFood'></span>
   </div>
@@ -27,14 +27,14 @@ export default {
         // 对于观测对象来说，本身不存在的属性，需要通过vue.set赋值，否则属性不生效，defineProperty检测不到
         Vue.set(this.good, 'count', 0)
       }
-      if (this.food.count === undefined) {
-        Vue.set(this.food, 'count', 0)
+      if (this.food.ccount === undefined) {
+        Vue.set(this.food, 'ccount', 0)
       }
-      this.food.count++
+      this.food.ccount++
       this.good.count++
     },
     decreaseFood () {
-      this.food.count--
+      this.food.ccount--
       this.good.count--
     }
   }

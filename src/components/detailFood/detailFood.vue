@@ -14,8 +14,8 @@
             <span>好评率 {{food.rating}}%</span>
           </div>
           <div class='price'>
-            <span class='nowPrice'>￥{{food.price/100}}</span>
-            <span class='oldPrice' v-show='food.final_price'>￥{{food.final_price/100}}</span>
+            <span class='nowPrice'>￥{{food.final_price/100}}</span>
+            <span class='oldPrice' v-show='food.price'>￥{{food.price/100}}</span>
           </div>
         </div>
         <div class='right'>
@@ -50,9 +50,10 @@ import collect from 'components/btn/collect'
 import addbtn from 'components/btn/addbtn'
 import Vue from 'vue'
 import axios from 'axios'
-const SELLER = '/api/seller'
-const GOODS = '/api/goods'
-const ERR_OK = 0
+// const SELLER = '/api/seller' 测试环境下
+// const ERR_OK = 0
+const SELLER = 'http://101.200.48.175/data.php'
+const ERR_OK = 'OK'
 export default {
   data () {
     return {
@@ -71,9 +72,16 @@ export default {
   },
   created () {
     axios.get(SELLER).then((res) => {
-      if (res.data.errno === ERR_OK) {
-        this.seller = res.data.data
-      }
+      // 测试环境下
+      // if (res.data.errno === ERR_OK) {
+      //   this.seller = res.data.data
+      // }
+      // 开发环境下
+      axios.get(SELLER).then((res) => {
+        if (res.statusText === ERR_OK) {
+          this.seller = res.data
+        }
+      })
     })
     if (localStorage.getItem('goods')) {
       this.goods = JSON.parse(localStorage.getItem('goods'))
@@ -82,15 +90,7 @@ export default {
       this.good = this.goods.filter(good => good.name === goodName)[0]
       this.food = this.good.products.filter(food => food.name === foodName)[0]
     } else {
-      axios.get(GOODS).then((res) => {
-        if (res.data.code === ERR_OK) {
-          this.goods = res.data.data
-          const goodName = decodeURI(this.$route.params.goodName)
-          const foodName = decodeURI(this.$route.params.foodName)
-          this.good = this.goods.filter(good => good.name === goodName)[0]
-          this.food = this.good.products.filter(food => food.name === foodName)[0]
-        }
-      })
+      this.$router.push({name: 'goods'})
     }
   },
   methods: {

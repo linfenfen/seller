@@ -9,15 +9,15 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 //vue2.0没有dev-server.js   express模拟后台也在webpack。dev。config。js中进行
 //添加开始 express起一个后台
-const express=require('express')
-const app=express()
-var appData=require('../data.json')
-var seller=appData.seller
-var goods=require('../categories.json').data
-var ratings=appData.ratings
+// const express=require('express')
+// const app=express()
+// var appData=require('../data.json')
+// var seller=appData.seller
+// var goods=require('../categories.json').data
+// var ratings=appData.ratings
 
-var apiRoutes=express.Router()
-app.use('/api',apiRoutes);
+// var apiRoutes=express.Router()
+// app.use('/api',apiRoutes);
 //添加结束 get请求在devServer中添加  post请求如下
 /*#webpack.dev.conf.js
 apiRoutes.post('/foods', function (req, res) { //注意这里改为post就可以了
@@ -64,26 +64,26 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },//mook数据  注意：浏览器中路径不要带#！！
-    before(app) {
-      app.get('/api/seller',(req,res)=>{
-        res.json({
-          errno:0,
-          data:seller
-        })
-      })
-      app.get('/api/goods',(req,res)=>{
-        res.json({
-          code:0,
-          data:goods
-        })
-      })
-      app.get('/api/ratings',(req,res)=>{
-        res.json({
-          errno:0,
-          data:ratings
-        })
-      })
-    }
+    // before(app) {
+    //   app.get('/api/seller',(req,res)=>{
+    //     res.json({
+    //       errno:0,
+    //       data:seller
+    //     })
+    //   })
+    //   app.get('/api/goods',(req,res)=>{
+    //     res.json({
+    //       code:0,
+    //       data:goods
+    //     })
+    //   })
+    //   app.get('/api/ratings',(req,res)=>{
+    //     res.json({
+    //       errno:0,
+    //       data:ratings
+    //     })
+    //   })
+    // }
   },
   plugins: [
     new webpack.DefinePlugin({

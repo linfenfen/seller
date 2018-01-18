@@ -1,0 +1,26 @@
+{
+  "code": 0,
+  "message": null,
+  "appid": "anyapp",
+  "appVersionId": "0.0.0",
+  "data": {
+    "name": "jzhuang",
+    "email": "jzhuang@cynoware.com",
+    "first_name": "Jie",
+    "last_name": "Zhuang",
+    "last_login_time": null,
+    "admin": true,
+    "oauth_provider": "CPOS",
+    "phone": null,
+    "image": {
+      "type": null,
+      "external_url": null,
+      "file_key": null
+    },
+    "photo": null,
+    "role": null,
+    "privileges": {},
+    "shops": [],
+    "shopRoles": {}
+  }
+}

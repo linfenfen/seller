@@ -17,7 +17,14 @@ module.exports = {
         pathRewrite: {
           '^/test': ''
         }
-    }
+      },
+      '/data': {
+        target: 'http://101.200.48.175/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/data': ''
+        }
+      }
     },
 
     // Various Dev Server settings
@@ -63,13 +70,13 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 

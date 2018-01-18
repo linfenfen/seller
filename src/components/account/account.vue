@@ -12,16 +12,20 @@
 			<div class='wrapper' v-for='good in goods' v-if='good.count'>
 				<div class='title goodtitle'>{{good.name}}</div>
 				<ul>
-					<li class='food' v-for='food in good.products' v-if='food.count'>
+					<li class='food' v-for='food in good.products' v-if='food.ccount'>
 						<div class='left'>
 							<div class='name'>{{food.name}}</div>
-							<div class='price'>￥ {{food.price * food.count}}</div>
+							<div class='price'>{{food.final_price * food.ccount/100}}</div>
 						</div>
 						<div class='right'>
-							<cartcontrol :food='food' :good='good' :count=true @localStorage='localStorage'></cartcontrol>
+							<cartcontrol :food='food' :good='good' @localStorage='localStorage'></cartcontrol>
 						</div>
 					</li>
 				</ul>
+			</div>
+			<div class='wrapper' v-if='totalMoney'>
+				<div class='title'>结算金额</div>
+				<div class='totalMoney'>总价为：{{totalMoney/100}}</div>
 			</div>
 			<div class='account-wrapper' v-if='showFlag'>
 					<span class='account' @click='account'>我要买单</span>
@@ -32,11 +36,8 @@
 	</div>
 </template>
 <script>
-import axios from 'axios'
 import back from 'components/btn/back'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
-const URL = '/api/goods'
-const ERR_OK = 0
 export default {
 	data () {
 		return {
@@ -60,6 +61,17 @@ export default {
 				}
 			}
 			return showFlag
+		},
+		totalMoney () {
+			let totalMoney = 0
+			this.goods.forEach(good => {
+				good.products.forEach(food => {
+					if (food.ccount) {
+					totalMoney += food.final_price * food.ccount
+					}
+				})
+			})
+			return totalMoney
 		}
 	},
 	created () {
@@ -67,11 +79,7 @@ export default {
 			if (localStorage.getItem('goods')) {
 				this.goods = JSON.parse(localStorage.getItem('goods'))
 			} else {
-				axios.get(URL).then((res) => {
-					if (res.data.errno === ERR_OK) {
-						this.goods = res.data.data
-					}
-				})
+				this.$router.push({name: 'goods'})
 			}
 		})
 	},
@@ -81,8 +89,8 @@ export default {
 				if (good.count) {
 					good.count = 0
 					good.products.forEach(food => {
-						if (food.count) {
-							food.count = 0
+						if (food.ccount) {
+							food.ccount = 0
 						}
 					})
 				}
@@ -93,9 +101,31 @@ export default {
 			localStorage.setItem('goods', JSON.stringify(this.goods))
 		},
 		account () {
+			// 提交到后台的订单 只写了两个变量
+			const dataObj = {
+				'ref_no': '20180111-881386A1-00001',
+				'subtotal': this.totalMoney,
+				'items': []
+			}
 			// 先提交订单，在清除本地数据
-			alert('已提交订单到后厨，请耐心等待...')
-			this.clearCar()
+			this.goods.forEach(good => {
+				if (good.count) {
+					good.products.forEach(food => {
+						if (food.ccount) {
+							dataObj.items.push({
+								'name': food.name,
+								'product_id': food.id,
+								'price': food.final_price,
+								'final_price': food.price,
+								'count': food.ccount,
+								'dutyfree': food.dutyfree
+							})
+						}
+					})
+				}
+			})
+			alert('已提交订单到后厨，请耐心等待...' + JSON.stringify(dataObj))
+			this.clearlocalstorage()
 		},
 		clearlocalstorage () {
 			localStorage.clear()
@@ -180,6 +210,8 @@ export default {
 				.right
 					box-sizing: border-box
 					padding:0.45rem
+			.totalMoney
+				text-align:left
 		.account-wrapper
 			margin-bottom:3rem
 			.account

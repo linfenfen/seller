@@ -35,7 +35,7 @@
 										<span>好评率 {{food.rating}}%</span>
 									</div>
 									<div class='price'>
-										<span class='nowPrice'>{{food.price / 100}}</span>
+										<span class='nowPrice'>{{food.final_price / 100}}</span>
 										<span class='oldPrice' v-show='food.final_price'>{{food.final_price / 100}}</span>
 									</div>
 								</div>
@@ -56,11 +56,10 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import cartcar from 'components/cartcar/cartcar'
 import detailFood from 'components/detailFood/detailFood'
-const URL = '/api/goods'
+import axios from 'axios'
 const ERR_OK = 0
 export default {
 	props: {
@@ -93,15 +92,17 @@ export default {
 				domFood.addEventListener('scroll', this.scroll)
 			})
 		} else {
-			axios.get(URL).then((res) => {
+			// const url = '/test/api/company/cpos/shops/59842dbde89ce90012774cd3/categories/all/products/all' 开发环境下
+			const url = 'http://101.200.48.175/good.php'
+			axios.get(url).then((res) => {
 				if (res.data.code === ERR_OK) {
 					this.goods = res.data.data
+					localStorage.setItem('goods', JSON.stringify(res.data.data))
 					this.$nextTick(() => {
 						this.curHeight()
 						const domFood = this.$refs.foodswrapper
 						domFood.addEventListener('scroll', this.scroll)
 					})
-					localStorage.setItem('goods', JSON.stringify(this.goods))
 				}
 			})
 		}
@@ -127,11 +128,12 @@ export default {
 			// 滚动时检测scroll的值， 若有相等的， 则当前curIndex改动
 			const domFood = this.$refs.foodswrapper
 			const domMenu = this.$refs.menuwrapper
+			const domScoll = Math.floor(domFood.scrollTop)
 			const scrollTop = Math.floor(domFood.scrollTop / 50) * 50
 			const index = this.listHeight['H' + scrollTop]
 			if (this.curHeight !== -1) {
 				// 处理因最后的菜单太小 导致的点击左侧菜单右侧跳转 但不激活左侧的问题
-				if (this.curHeight === scrollTop) {
+				if (this.curHeight === domScoll) {
 					this.curIndex = this.targetIndex
 					this.targetIndex = -1
 					this.curHeight = -1
@@ -148,8 +150,8 @@ export default {
 		jump (index) {
 			const items = this.$refs.foodlist
 			const domFood = this.$refs.foodswrapper
-			const scrollTop = Math.floor(domFood.scrollTop / 50) * 50
-			const scrollHeight = Math.floor((domFood.scrollHeight - domFood.clientHeight) / 50) * 50
+			const scrollTop = Math.floor(domFood.scrollTop)
+			const scrollHeight = Math.floor(domFood.scrollHeight - domFood.clientHeight)
 			const offsetTop = items[index].offsetTop
 			if (scrollTop === scrollHeight && offsetTop > scrollTop) {
 				// 右侧菜单到底  但是由于末尾菜单高度不足 导致不激活左侧菜单

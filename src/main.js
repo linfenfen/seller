@@ -9,6 +9,13 @@ import 'babel-polyfill'
 
 Vue.config.productionTip = false
 Vue.use(axios)
+// 本地测试环境下开启
+// var AUTH_TOKEN = 'NWE2MDY2YTNlODljZTkwMDEwNzQxOWJi'
+// var instance = axios.create({
+// })
+// // 在实例已创建后修改默认值
+// instance.defaults.headers.common['Authorization'] = AUTH_TOKEN
+// instance.defaults.headers.post['Content-Type'] = 'application/json'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

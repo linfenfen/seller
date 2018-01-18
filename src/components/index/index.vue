@@ -13,8 +13,9 @@
 <script>
 import header from 'components/header/header'
 import axios from 'axios'
-
-const ERR_OK = 0
+// 测试环境
+// const ERR_OK = 0
+const ERR_OK = 'OK'
 export default {
   name: 'app',
   components: {
@@ -27,10 +28,15 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      const url = '/api/seller'
+     // const url = '/data/data.php' 本地调试
+     const url = 'http://101.200.48.175/data.php'
       axios.get(url).then((res) => {
-        if (res.data.errno === ERR_OK) {
-          this.seller = res.data.data
+        // 测试环境
+        // if (res.data.errno === ERR_OK) {
+        //   this.seller = res.data.data
+        // }
+        if (res.statusText === ERR_OK) {
+          this.seller = res.data
         }
       })
     })

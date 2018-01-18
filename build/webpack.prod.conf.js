@@ -64,6 +64,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.index,
       template: 'index.html',
       inject: true,
+      //版本控制
+      hash:true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
